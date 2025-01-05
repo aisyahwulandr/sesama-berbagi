@@ -8,7 +8,7 @@
                     Bersama kita bisa membantu mereka yang membutuhkan
                 </p>
                 <div class="mt-4 flex justify-center">
-                    <input type="text" v-model="searchQuery" placeholder="Cari donasi..."
+                    <input type="text" v-model="searchQuery" placeholder="Cari program..."
                         class="w-full max-w-md px-4 py-2 border border-ternary rounded-lg focus:outline-none focus:border-primary" />
                     <button @click="searchDonations"
                         class="ml-2 bg-ternary text-white px-4 py-2 rounded-lg hover:bg-ternaryhover">
