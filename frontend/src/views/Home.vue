@@ -45,37 +45,8 @@
             </div>
         </div>
 
-        <!-- Filters & Sort Section -->
-        <!-- <div class="container mx-auto mb-6 flex justify-end">
-            <div class="flex flex-wrap gap-4"> -->
-                <!-- Filter by Category -->
-                <!-- <div class="flex flex-col">
-                    <label for="category" class="text-gray-700 font-medium">Kategori</label>
-                    <select id="category" v-model="selectedCategory"
-                        class="mt-2 border border-ternary rounded-lg p-2 focus:ring-primary focus:border-primary">
-                        <option value="">Semua</option>
-                        <option v-for="category in categories" :key="category" :value="category">
-                            {{ category }}
-                        </option>
-                    </select>
-                </div> -->
-
-                <!-- Sort Options -->
-                <!-- <div class="flex flex-col">
-                    <label for="sort" class="text-gray-700 font-medium">Urutkan</label>
-                    <select id="sort" v-model="sortOption"
-                        class="mt-2 border border-ternary rounded-lg p-2 focus:ring-primary focus:border-primary">
-                        <option value="newest">Terbaru</option>
-                        <option value="oldest">Terlama</option>
-                        <option value="highest">Jumlah Terkumpul Tertinggi</option>
-                        <option value="lowest">Jumlah Terkumpul Terendah</option>
-                    </select>
-                </div> -->
-            <!-- </div>
-        </div> -->
-
         <!-- Donation Cards Section -->
-        <div class="container mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div class="container mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
             <div v-for="donation in filteredDonations" :key="donation.id" class="bg-secondary p-6 rounded-lg relative">
                 <img :src="donation.image" :alt="donation.title" class="rounded-lg w-full h-48 object-cover mb-4" />
                 <h3 class="text-xl font-semibold text-ternary mb-2">{{ donation.title }}</h3>
@@ -126,102 +97,13 @@
 </template>
 
 <script>
+import axios from "axios";
+const apiUrl = import.meta.env.VITE_API_URL;
+
 export default {
     data() {
         return {
-            donations: [
-                {
-                    id: 1,
-                    title: "Bantu Anak Yatim",
-                    description:
-                        "Bantuan Anda dapat meringankan beban anak-anak yatim yang membutuhkan dukungan pendidikan dan kesejahteraan.",
-                    category: "Kesejahteraan",
-                    target: 10000000,
-                    raised: 5000000,
-                    createdAt: new Date("2024-12-01"),
-                    image: "https://via.placeholder.com/300",
-                },
-                {
-                    id: 2,
-                    title: "Bantu Korban Bencana",
-                    description: "Bantu mereka yang terdampak bencana alam untuk membangun kembali fasilitas yang terdampak.",
-                    category: "Bencana",
-                    target: 15000000,
-                    raised: 12000000,
-                    createdAt: new Date("2024-12-02"),
-                    image: "https://via.placeholder.com/300",
-                },
-                {
-                    id: 3,
-                    title: "Bantu Pendidikan Anak",
-                    description: "Donasi Anda akan membantu anak-anak kurang mampu untuk mendapatkan akses pendidikan yang layak.",
-                    category: "Pendidikan",
-                    target: 15000000,
-                    raised: 12000000,
-                    createdAt: new Date("2024-12-02"),
-                    image: "https://via.placeholder.com/300",
-                },
-                {
-                    id: 4,
-                    title: "Bantu Pembangunan Masjid",
-                    description: "Donasi Anda membantu pembangunan tempat ibadah yang nyaman dan layak bagi umat.",
-                    category: "Kesejahteraan",
-                    target: 25000000,
-                    raised: 12000000,
-                    createdAt: new Date("2024-12-02"),
-                    image: "https://via.placeholder.com/300",
-                },
-                {
-                    id: 5,
-                    title: "Bantu Biaya Pengobatan",
-                    description: "Bantuan Anda akan meringankan beban biaya pengobatan bagi mereka yang kurang mampu.",
-                    category: "Kesehatan",
-                    target: 80000000,
-                    raised: 12000000,
-                    createdAt: new Date("2024-12-02"),
-                    image: "https://via.placeholder.com/300",
-                },
-                {
-                    id: 6,
-                    title: "Bantu Lansia",
-                    description: "Donasi Anda akan memberikan kehidupan yang lebih baik untuk lansia yang memerlukan.",
-                    category: "Kesejahteraan",
-                    target: 15000000,
-                    raised: 12000000,
-                    createdAt: new Date("2024-12-02"),
-                    image: "https://via.placeholder.com/300",
-                },
-                {
-                    id: 7,
-                    title: "Bantu Panti Asuhan",
-                    description: "Dukung panti asuhan untuk memberikan lingkungan yang sehat dan bahagia bagi anak-anak",
-                    category: "Kesejahteraan",
-                    target: 15000000,
-                    raised: 15000000,
-                    createdAt: new Date("2024-12-03"),
-                    image: "https://via.placeholder.com/300",
-                },
-                {
-                    id: 8,
-                    title: "Bantu Kesejahteraan Masyarakat",
-                    description: "Kontribusi Anda akan membantu program-program peningkatan kesejahteraan masyarakat.",
-                    category: "Kesejahteraan",
-                    target: 18000000,
-                    raised: 17000000,
-                    createdAt: new Date("2024-12-04"),
-                    image: "https://via.placeholder.com/300",
-                },
-                {
-                    id: 9,
-                    title: "Bantu Penghijauan",
-                    description: "Bantu kami menanam pohon untuk menjaga lingkungan tetap hijau dan sehat.",
-                    category: "Kesejahteraan",
-                    target: 25000000,
-                    raised: 10000000,
-                    createdAt: new Date("2024-12-05"),
-                    image: "https://via.placeholder.com/300",
-                }
-            ],
+            donations: [],
             searchQuery: "",
             selectedCategory: "",
             sortOption: "newest",
@@ -246,9 +128,9 @@ export default {
             }
 
             if (this.sortOption === "newest") {
-                filtered.sort((a, b) => b.createdAt - a.createdAt);
+                filtered.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
             } else if (this.sortOption === "oldest") {
-                filtered.sort((a, b) => a.createdAt - b.createdAt);
+                filtered.sort((a, b) => new Date(a.created_at) - new Date(b.created_at));
             } else if (this.sortOption === "highest") {
                 filtered.sort((a, b) => b.raised - a.raised);
             } else if (this.sortOption === "lowest") {
@@ -266,6 +148,14 @@ export default {
         },
     },
     methods: {
+        async fetchDonations() {
+            try {
+                const response = await axios.get(`${apiUrl}/programs`);
+                this.donations = response.data;
+            } catch (error) {
+                console.error("Error fetching data:", error);
+            }
+        },
         viewDetails(donation) {
             this.selectedDonation = donation;
         },
@@ -285,7 +175,11 @@ export default {
             }).format(value);
         }
     },
+    mounted() {
+        this.fetchDonations();
+    },
 };
+
 </script>
 
 <style scoped>

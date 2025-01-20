@@ -45,18 +45,14 @@
     <router-view></router-view>
 
     <!-- Other components -->
-    <MyComponent />
+
   </div>
 </template>
 
 <script>
-import MyComponent from './components/MyComponent.vue';
 import images from '@/assets/index.js';
 
 export default {
-  components: {
-    MyComponent
-  },
   data() {
     return {
       images,
